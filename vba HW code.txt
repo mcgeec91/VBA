@@ -1,0 +1,50 @@
+Sub StockMarket()
+Dim ws As Worksheet
+Dim starting_ws As Worksheet
+Set starting_ws = ActiveSheet
+For Each ws In ThisWorkbook.Worksheets
+    ws.Activate
+    ws.Cells(1, 1) = 1
+
+
+LastRow = Cells(Rows.Count, "A").End(xlUp).Row + 1
+
+Dim ticker As String
+Dim TotalVolume As Long
+
+
+
+
+
+Dim Summary_Table_Row As Long
+Summary_Table_Row = 2
+
+
+
+
+For i = 2 To LastRow
+    
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+    ticker = Cells(i, 1).Value
+    TotalVolume = 0
+
+    
+    TotalVolume = Cells(i, 7).Value + TotalVolume
+    
+    Range("I" & Summary_Table_Row).Value = ticker
+    Range("J" & Summary_Table_Row).Value = TotalVolume
+    Summary_Table_Row = Summary_Table_Row + 1
+    TotalVolume = 0
+End If
+
+
+Next i
+
+Cells(1, 9).Value = "Ticker"
+Cells(1, 10).Value = "Total Stock Volume"
+
+
+Next ws
+MsgBox ("done")
+End Sub
+
